@@ -1,0 +1,27 @@
+function showDiagramm(php_data, id, username) {
+    new Chart(
+        document.querySelector(`.diagramm-item #myChart${id}`),
+        {
+        type: 'bar',
+        data: {
+            labels: php_data.map(row => row.criterion_name),
+            datasets: [{
+              label: username,
+              data: php_data.map(row => row.points),
+              borderWidth: 2,
+              backgroundColor: '#0d6efd',
+            }]
+        },
+        options: {
+            legend: {display: true},
+            scales: {
+                yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                }],
+            }
+        }
+    });
+    console.log(document.querySelector(`.diagramm-item #myChart${id}`));
+}
