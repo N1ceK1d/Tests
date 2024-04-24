@@ -2,9 +2,7 @@
 require("conn.php");
 
 $company_id = $_POST['company_id'];
-echo $company_id;
 $users = $conn->query("SELECT * FROM Users WHERE company_id = $company_id");
-var_dump($users);
 if($users->num_rows > 0)
 {
     foreach ($users as $user) {
