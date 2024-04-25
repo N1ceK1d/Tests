@@ -18,10 +18,17 @@ function getUserResult($user_id, $username){?>
       $myArray[] = $row;
     }
     ?>
-    <canvas id="myChart<?php echo $user_id ?>" style="max-width:500px"></canvas>
+    <canvas id="myChart<?php echo $user_id ?>" style="max-width:500px;height:400px"></canvas>
     <script src="../js/diagramm.js"></script>
+    <?php
+      $company_name = "SELECT * FROM Users
+      INNER JOIN Companies ON Users.company_id = Companies.id 
+      WHERE Users.id = $user_id";
+
+      $name = mysqli_fetch_assoc($conn->query($company_name));
+    ?>
     <script>
-      showDiagramm(<?php echo json_encode($myArray); ?>, <?php echo $user_id ?>, "<?php echo $username ?>");
+      showDiagramm(<?php echo json_encode($myArray); ?>, <?php echo $user_id ?>, "<?php echo $username ?>", '<?php echo $name['name'] ?>');
     </script>
   </div>
 <?php } ?>
@@ -46,10 +53,17 @@ function getSupervisorResult($user_id, $username){?>
       $myArray[] = $row;
     }
     ?>
-    <canvas id="myChart<?php echo $user_id ?>" style="max-width:500px"></canvas>
+    <canvas id="myChart<?php echo $user_id ?>" style="max-width:500px;height:400px"></canvas>
     <script src="../js/diagramm.js"></script>
+    <?php
+      $company_name = "SELECT * FROM Supervisor
+      INNER JOIN Companies ON Supervisor.company_id = Companies.id 
+      WHERE Supervisor.id = $user_id";
+
+      $name = mysqli_fetch_assoc($conn->query($company_name));
+    ?>
     <script>
-      showDiagramm(<?php echo json_encode($myArray); ?>, <?php echo $user_id ?>, "<?php echo $username ?>");
+      showDiagramm(<?php echo json_encode($myArray); ?>, <?php echo $user_id ?>, "<?php echo $username ?>", '<?php echo $name['name'] ?>');
     </script>
   </div>
 <?php } ?>
@@ -94,10 +108,17 @@ function getСomparisons($company_id){?>
         $managers[] = $row2;
       }
     ?>
-    <canvas id="myChart<?php echo $row['supervisor_id'] ?>" style="max-width:500px"></canvas>
+    <canvas id="myChart<?php echo $row['supervisor_id'] ?>" style="max-width:500px;height:400px"></canvas>
     <script src="../js/diagramm.js"></script>
+    <?php
+      $company_name = "SELECT * FROM Supervisor
+      INNER JOIN Companies ON Supervisor.company_id = Companies.id 
+      WHERE Supervisor.id = ".$row['supervisor_id'];
+
+      $name = mysqli_fetch_assoc($conn->query($company_name));
+    ?>
     <script>
-      showComparisonsDiagramm(<?php echo json_encode($employees); ?>, <?php echo json_encode($managers)?>, <?php echo $row['supervisor_id']; ?>, '<?php echo $row['fullname'] ?>');
+      showComparisonsDiagramm(<?php echo json_encode($employees); ?>, <?php echo json_encode($managers)?>, <?php echo $row['supervisor_id']; ?>, '<?php echo $row['fullname'] ?>', '<?php echo $name['name']; ?>');
     </script>
     <?php 
     $managers = array();
@@ -126,10 +147,10 @@ function getAverageResult($company_id, $company_name){?>
       $myArray[] = $row;
     }
     ?>
-    <canvas id="myChart<?php echo $company_id ?>" style="max-width:500px"></canvas>
+    <canvas id="myChart<?php echo $company_id ?>" style="max-width:500px;height:400px"></canvas>
     <script src="../js/diagramm.js"></script>
     <script>
-      showDiagramm(<?php echo json_encode($myArray); ?>, <?php echo $company_id ?>, '<?php echo $company_name; ?>');
+      showDiagramm(<?php echo json_encode($myArray); ?>, <?php echo $company_id ?>, '<?php echo $company_name; ?>', '<?php echo $company_name; ?>');
     </script>
   </div>
 <?php } ?>

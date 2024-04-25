@@ -1,4 +1,4 @@
-function showDiagramm(php_data, id, username) {
+function showDiagramm(php_data, id, username, company_name = 'Компания') {
     //console.log(php_data)
     //console.log(id)
     //console.log(username)
@@ -23,12 +23,17 @@ function showDiagramm(php_data, id, username) {
                       max: 100
                     }
                 }],
+            },
+            title: {
+                display: true,
+                text: company_name,
             }
+            
         }
     });
 }
 
-function showComparisonsDiagramm(employees_data, managers_data, id, manager_name = 'Руководитель') {
+function showComparisonsDiagramm(employees_data, managers_data, id, manager_name = 'Руководитель', company_name = 'Компания') {
     console.log(employees_data);
     new Chart(
         document.querySelector(`.diagramm-item #myChart${id}`),
@@ -58,6 +63,10 @@ function showComparisonsDiagramm(employees_data, managers_data, id, manager_name
                           max: 100
                         }
                     }],
+                },
+                title: {
+                    display: true,
+                    text: company_name,
                 }
             }
         }
